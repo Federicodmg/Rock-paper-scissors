@@ -1,11 +1,11 @@
 let possibleSelections = ["rock", "paper", "scissors"],
+    computerI = "", //Computer Index,
     playerSelection,
-    computerI = "", //Computer Index
     lastRoundError = false;
 
 function computerPlay() {
     computerI = Math.floor(Math.random() * 3);
-    return possibleSelections[computerI].toLowerCase();
+    return possibleSelections[computerI];
 }
 
 function playRound() {
@@ -17,8 +17,9 @@ function playRound() {
     }
 
     if (!possibleSelections.includes(playerSelection)) return "That is not a valid option, please try again!";
-    let playerI = possibleSelections.indexOf(playerSelection); //Player Index
-    computerSelection = computerPlay();
+
+    let playerI = possibleSelections.indexOf(playerSelection), //Player Index
+        computerSelection = computerPlay();
 
     if (playerSelection == computerSelection) return `The game is a tie!`;
 
