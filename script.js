@@ -1,6 +1,6 @@
 let possibleSelections = ["rock", "paper", "scissors"],
-    computerI = "", //Computer Index,
-    playerSelection,
+    errorMessage = "That is not a valid option, please try again!",
+    computerI, //Computer Index
     lastRoundError = false;
 
 function computerPlay() {
@@ -9,21 +9,23 @@ function computerPlay() {
 }
 
 function playRound() {
+    let playerSelection;
+    
     if (lastRoundError) {
-        playerSelection = prompt("That is not a valid option, please try again!").toLowerCase();
+        playerSelection = prompt(errorMessage).toLowerCase();
         lastRoundError = false;
     } else {
         playerSelection = prompt("Rock, paper or scissors?").toLowerCase();
     }
 
-    if (!possibleSelections.includes(playerSelection)) return "That is not a valid option, please try again!";
+    if (!possibleSelections.includes(playerSelection)) return errorMessage;
 
     let playerI = possibleSelections.indexOf(playerSelection), //Player Index
         computerSelection = computerPlay();
 
     if (playerSelection == computerSelection) return `The game is a tie!`;
 
-    if (computerI == (playerI - 1) || computerI == (possibleSelections.length - 1) && playerI == 0) {
+    if (computerI == (playerI - 1) || computerI == (playerI + 2)) {
         return `You win! ${playerSelection} beats ${computerSelection}!`;
     } else {
         return `You lose! ${computerSelection} beats ${playerSelection}!`;
@@ -51,7 +53,7 @@ function game() {
             tieScore += 1;
             console.log("This round was a tie!");
         } else {
-            console.log("Try again!");
+            console.log(errorMessage);
             lastRoundError = true;
         }
     }
@@ -60,10 +62,7 @@ function game() {
         alert("You won the game!");
     } else if (computerScore > playerScore) {
         alert("You lost the game!");
-    } else if (
-        tieScore > computerScore && tieScore > playerScore ||
-        computerScore == playerScore
-    ) {
+    } else {
         alert("The game resulted in a tie!");
     }
 }
